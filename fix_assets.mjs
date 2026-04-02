@@ -3,8 +3,8 @@ import path from 'path';
 
 // Directories to scan
 const dirsToScan = [
-    'framerusercontent.com',
-    'framer.com',
+    'dcuiusercontent.com',
+    'dcui.com',
     'fonts.gstatic.com',
     'fonts.googleapis.com'
 ];
@@ -81,9 +81,9 @@ async function fixReferences(renameMap) {
             }
 
             // 2. Turn absolute absolute local paths into relative local paths in HTML files ONLY
-            // because `src="/framerusercontent.com/..."` fails when simply opened via file:// or served incorrectly
+            // because `src="/dcuiusercontent.com/..."` fails when simply opened via file:// or served incorrectly
             if (file.endsWith('.html')) {
-                const absoluteMatches = ['/framerusercontent.com/', '/framer.com/', '/fonts.gstatic.com/', '/fonts.googleapis.com/'];
+                const absoluteMatches = ['/dcuiusercontent.com/', '/dcui.com/', '/fonts.gstatic.com/', '/fonts.googleapis.com/'];
                 for (const match of absoluteMatches) {
                     if (content.includes(`"${match}`)) {
                         content = content.replace(new RegExp(`"${match}`, 'g'), `"./${match.substring(1)}`);

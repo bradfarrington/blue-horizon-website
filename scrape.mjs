@@ -6,8 +6,8 @@ const downloaded = new Set();
 const toDownload = new Set();
 
 const domainsToScrape = [
-    'framerusercontent.com',
-    'framer.com',
+    'dc-assets',
+    'dc-lib',
     'fonts.gstatic.com',
     'fonts.googleapis.com'
 ];
@@ -77,7 +77,7 @@ function getLocalPathFromUrl(urlStr) {
     }
 }
 
-const urlRegex = /https:\/\/(?:framerusercontent\.com|framer\.com|fonts\.gstatic\.com|fonts\.googleapis\.com)[^\s"'<>\)\[\]{}`,\\]+/g;
+const urlRegex = /https:\/\/(?:dcuiusercontent\.com|dcui\.com|fonts\.gstatic\.com|fonts\.googleapis\.com)[^\s"'<>\)\[\]{}`,\\]+/g;
 
 async function processContent(contentStr, sourceUrl) {
     // 1. Process absolute URLs
@@ -158,11 +158,11 @@ async function rewriteHtmlFiles() {
         let content = await fs.readFile(file, 'utf8');
         content = await processContent(content, file);
         
-        // Remove tracking code & Framer specifics
-        content = content.replace(/<script>try\s*\{\s*if\s*\(localStorage\.get\("__framer_force_showing_editorbar_since"\)\)[\s\S]*?<\/script>/g, '');
-        content = content.replace(/<script async src="https:\/\/events\.framer\.com[^>]*><\/script>/g, '');
-        content = content.replace(/<div id="__framer-editorbar-container"[\s\S]*?<\/div>/g, '');
-        content = content.replace(/<iframe id="__framer-editorbar"[\s\S]*?<\/iframe>/g, '');
+        // Remove tracking code & Digital Craft specifics
+        content = content.replace(/<script>try\s*\{\s*if\s*\(localStorage\.get\("__dcui_force_showing_editorbar_since"\)\)[\s\S]*?<\/script>/g, '');
+        content = content.replace(/<script async src="https:\/\/events\.dcui\.com[^>]*><\/script>/g, '');
+        content = content.replace(/<div id="__dcui-editorbar-container"[\s\S]*?<\/div>/g, '');
+        content = content.replace(/<iframe id="__dcui-editorbar"[\s\S]*?<\/iframe>/g, '');
         
         await fs.writeFile(file, content, 'utf8');
     }
